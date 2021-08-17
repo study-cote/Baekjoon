@@ -6,24 +6,24 @@ class findFrac {
 	int data, count, sum;
 
 public:
-	findFrac(int n) : data(n), count(1), sum(0) {
+	findFrac(int n) : data(n), count(1), sum(0) {   // 생성자
 		
 	}
-	void answer();
+	void answer();  // 결과값 구하는 함수
 };
 
-void findFrac::answer() {
-	for (;;count++) {
+void findFrac::answer() {  // 결과값 구하는 함수
+	for (;;count++) {      // 몇 번째 대각선인지 구함
 		sum += count;
 		if (data <= sum) {
 			break;
 		}
 	}
 
-	if (count % 2) {
+	if (count % 2) {     // 홀수 번째 대각선일 경우
 		cout << sum - data + 1 << '/' << count - (sum - data);
 	}
-	else {
+	else {   // 짝수 번째 대각선일 경우
 		cout << count - (sum - data) << '/' << sum - data + 1;
 	}
 }
