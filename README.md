@@ -1,2 +1,5 @@
-# Baekjoon
-For Backjoon
+# 문제 풀이 -- Baekjoon
+
+1. 언어는 자유! (C, C++, Python 등등)
+2. 코드에 주석 달 것!
+3. 코드 파일명은 문제_이름
