@@ -7,7 +7,7 @@ int main()
     cin >> t;
     
     for (int i=0; i<t; i++) {
-        int h=0, w, n; // height, width, nth customer
+        int h, w, n; // height, width, nth customer
         cin >> h >> w >> n;
         
         int cnt = 0, x = 0; // x = room number
