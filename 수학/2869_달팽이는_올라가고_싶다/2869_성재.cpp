@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 using std::cin;
 using std::cout;
 
@@ -14,7 +15,7 @@ public:
 };
 
 void snail::answer() { // 답 출력
-	cout << (v - b - 1) / (a - b) + 1;
+	cout << (int)ceil((double)(v - b) / (a - b));   // 소수점 아래 올림
 }
 
 int main(void) {
