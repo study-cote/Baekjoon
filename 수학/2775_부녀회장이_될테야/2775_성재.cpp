@@ -1,15 +1,16 @@
 #include <iostream>
+#include <cmath>
 using std::cin;
 using std::cout;
 using std::ios_base;
 
 class apart {
 	int k, n;
-	long long int answer;
+	double answer;
 
 public:
-	void inputData();
-	void printAnswer();
+	void inputData();         // 데이터 입력
+	void printAnswer();       // 결과값 계산 및 출력
 };
 
 void apart::inputData() {
@@ -27,11 +28,10 @@ void apart::printAnswer() {
 	answer = 1;
 	for (int i = 0; i < b; i++) {
 		answer *= a--;
-	}
-	for (int i = 0; i < b; i++) {
 		answer /= (b - i);
 	}
-	cout << answer << '\n';
+
+	cout << (int)ceil(answer) << '\n';
 }
 
 int main(void) {
