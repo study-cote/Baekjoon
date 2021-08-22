@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-string calNum(string n, string m) {
+void calNum(string n, string m) {
     int diff = m.size() - n.size();
     bool flag = false; // check carry or not
     string res;
@@ -39,19 +39,19 @@ string calNum(string n, string m) {
     
     if (flag == true) res.insert(0, "1"); // if the lengths of two numbers are same, carry here.
 
-    return res;
+    cout << res;
+    return;
 }
 
 int main(){
-    string a, b, res;
+    string a, b;
     cin >> a >> b;
 
     int diff = a.size()-b.size(); // to simplify the code, fix 'a' as a larger number
     if (diff < 0)
         swap(a, b);
 
-    res = calNum(b, a);
+    calNum(b, a);
 
-    cout << res;
     return 0;
 }
