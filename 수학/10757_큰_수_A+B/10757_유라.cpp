@@ -4,15 +4,15 @@ using namespace std;
 
 string calNum(string n, string m) {
     int diff = m.size() - n.size();
-    bool flag = false;
+    bool flag = false; // check carry or not
     string res;
     
-    for (int i=n.size()-1; i>=0; i--) {
-        int tmp = (m[i+diff]-'0') + (n[i]-'0');
-        if (flag == true) tmp += 1;
+    for (int i=n.size()-1; i>=0; i--) { // common parts
+        int tmp = (m[i+diff]-'0') + (n[i]-'0'); // addition
+        if (flag == true) tmp += 1; // carry
 
         if (tmp>=10) {
-            res.insert(0, to_string(tmp%10));
+            res.insert(0, to_string(tmp%10)); // left after carry
             flag = true; 
         }
         else {
@@ -21,51 +21,37 @@ string calNum(string n, string m) {
         }
     }
 
-    for (int i=diff-1; i>=0; i--) {
-        int tmp = (m[i] -'0');
-        if (flag == true) tmp += 1;
-       
-        if (tmp>=10 && i!=0) {
-            res.insert(0, to_string(tmp%10));
-            flag = true; 
-        }
-        else {
-            res.insert(0, to_string(tmp));
-            flag = false;
-        }
-    }
-
-    return res;
-}
-
-int main() {
-    string a, b, c;
-    cin >> a >> b;
-
-    // string to char array
-    bool flag = false;
-    int tmp = 0;
-
-    if (a.size() == b.size()) {
-        for (int i=a.size()-1; i>=0; i--) {
-            tmp =(a[i]-'0') + (b[i]-'0'); // char to int : char - '0'
+    if (diff != 0) { // if the lengths of two numbers are different
+        for (int i=diff-1; i>=0; i--) {
+            int tmp = (m[i] -'0');
             if (flag == true) tmp += 1;
-            
-            if (tmp>=10 && i!=0) {
-                c.insert(0, to_string(tmp%10));
+       
+            if (tmp>=10 && i!=0) { // at last digit, no need for carry.
+                res.insert(0, to_string(tmp%10));
                 flag = true; 
             }
             else {
-                c.insert(0, to_string(tmp));
+                res.insert(0, to_string(tmp));
                 flag = false;
             }
         }
     }
-    else if (a.size() > b.size())
-        c = calNum(b, a);
-    else
-        c = calNum(a, b);
+    
+    if (flag == true) res.insert(0, "1"); // if the lengths of two numbers are same, carry here.
 
-    cout << c;
+    return res;
+}
+
+int main(){
+    string a, b, res;
+    cin >> a >> b;
+
+    int diff = a.size()-b.size(); // to simplify the code, fix 'a' as a larger number
+    if (diff < 0)
+        swap(a, b);
+
+    res = calNum(b, a);
+
+    cout << res;
     return 0;
 }
