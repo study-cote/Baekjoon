@@ -1,7 +1,10 @@
+/* I implement both functions including and excepting loop.
+Excepting loop is simpler but including loop takes less time. */
+
 #include <iostream>
 using namespace std;
 
-int numofperson(int k, int n) {
+int numofperson(int k, int n) { // including loop
     if (k==0) // room #n of 0 floor has n person
         return n;
     else {
@@ -12,6 +15,15 @@ int numofperson(int k, int n) {
         }
         return ans;
     }
+}
+
+int numofperson_simple(int k, int n) { // except loop
+    if (k==0)
+        return n;
+    else if (n==1)
+        return 1;
+    else
+        return numofperson_simple(k, n-1) + numofperson_simple(k-1, n);
 }
 
 int main()
