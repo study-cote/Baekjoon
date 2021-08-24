@@ -2,8 +2,8 @@
 using namespace std;
 
 int findprime(int t) {
-    int start=t+1, end=2*t+1, count=0;
-    int num[end] = {false};
+    int start=t+1, end=2*t, count=0;
+    int num[end+1] = {false};
 
     num[0] = true;
     num[1] = true;
