@@ -8,7 +8,6 @@ void findprime(int a, int b) {
     num[1] = true;
 
     for (int i=2; i<=b; i++) {
-        cout << i << endl;
         if (num[i])
             continue;
         
