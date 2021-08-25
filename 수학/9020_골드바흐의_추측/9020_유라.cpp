@@ -2,6 +2,7 @@
 using namespace std;
 #define SIZE 10000
 
+// find min prime number
 int find_min_prime(int a, bool arr[]) {
     int j;
     for (j=a-1; j>=2; j--) {
@@ -11,6 +12,7 @@ int find_min_prime(int a, bool arr[]) {
     return j;
 }
 
+// find max prime number
 int find_max_prime(int b, bool arr[]) {
     int j;
     for (j=b+1; j<=SIZE; j++) {
