@@ -2,8 +2,9 @@
 using namespace std;
 
 int findprime(int t) {
+    // 에라토스테네스의 체
     int start=t+1, end=2*t, count=0;
-    int num[end+1] = {false};
+    int num[end+1] = {false}; // 제시하는 범위만큼의 배열 만듦 
 
     num[0] = true;
     num[1] = true;
@@ -15,6 +16,7 @@ int findprime(int t) {
             num[j] = true;
     }
 
+    // 범위 내의 소수 개수 세기
     while(start<=end) {
         if(!num[start])
             count++;
