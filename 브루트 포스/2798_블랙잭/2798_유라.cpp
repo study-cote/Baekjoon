@@ -16,7 +16,7 @@ void blackjack(int n) {
                 sum += input[i]; // 카드의 값 더하기
         }
         result.push(sum); // 선택한 세 카드의 값 더한 것 스택에 저장
-    } while(prev_permutation(check.begin(), check.end())); // 조합 위해 접근할 요소의 위치 변경
+    } while(prev_permutation(check.begin(), check.end())); // 모든 조합의 경우의 수를 오름차순으로 출력 가능
 
     return;
 }
