@@ -6,51 +6,51 @@ class cal {
 	int n, min = 1000000001, max = -1000000001;
 	int* num, * oper_num;
 
-	void inputData();
-	void backtracking(int, int);
+	void inputData();    // 데이터 입력
+	void backtracking(int, int);    // 백트래킹
 
 public:
-	~cal() {
+	~cal() {    // 소멸자
 		delete[] num;
 		delete[] oper_num;
 	}
 
-	void answer();
+	void answer();    // 함수 실행 및 결과 출력
 };
 
-void cal::inputData() {
+void cal::inputData() {   // 데이터 입력
 	cin >> n;
 	num = new int[n];
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++) {   // 숫자 입력
 		cin >> num[i];
 	}
 	oper_num = new int[4];
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 4; i++) {   // 연산자 개수 입력
 		cin >> oper_num[i];
 	}
 }
 
-void cal::backtracking(int sum, int cur) {
+void cal::backtracking(int sum, int cur) {    // 백트래킹
 	if (cur < n) {
 		for (int i = 0; i < 4; i++) {
 			if (oper_num[i]) {
 				switch (i) {
-				case 0:
+				case 0:   // +
 					oper_num[i]--;
 					backtracking(sum + num[cur], cur + 1);
 					oper_num[i]++;
 					break;
-				case 1:
+				case 1:   // -
 					oper_num[i]--;
 					backtracking(sum - num[cur], cur + 1);
 					oper_num[i]++;
 					break;
-				case 2:
+				case 2:   // *
 					oper_num[i]--;
 					backtracking(sum * num[cur], cur + 1);
 					oper_num[i]++;
 					break;
-				case 3:
+				case 3:   // /
 					oper_num[i]--;
 					backtracking(sum / num[cur], cur + 1);
 					oper_num[i]++;
