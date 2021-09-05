@@ -4,62 +4,60 @@ using std::cout;
 
 class sudoku {
 	const int arr_size = 9;
-	int** arr;
-	bool find_answer, num;
-	int row_start, col_start;
+	int board[9][9], row_num[9][10], col_num[9][10], box_num[3][3][10];
+	bool find_answer;
 
-	void inputData();
-	void backtracking(int, int);
+	void inputData();    // ������ �Է�
 
 public:
-	sudoku() : find_answer(false) {
-		arr = new int* [arr_size];
-		for (int i = 0; i < arr_size; i++) {
-			arr[i] = new int[arr_size];
+	sudoku() : find_answer(false) {   // ������
+		for (int i = 0; i < arr_size; i++) {   // �迭 �ʱ�ȭ
+			for (int j = 1; j < 10; j++) {
+				row_num[i][j] = 0;
+				col_num[i][j] = 0;
+			}
+		}
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				for (int k = 1; k < 10; k++) {
+					box_num[i][j][k] = 0;
+				}
+			}
 		}
 	}
 
-	void answer();
+	void answer();   // �Լ� ����
 };
 
-void sudoku::inputData() {
+void sudoku::inputData() {   // ������ �Է�
 	for (int i = 0; i < arr_size; i++) {
 		for (int j = 0; j < arr_size; j++) {
-			cin >> arr[i][j];
+			cin >> board[i][j];
+
+			if (board[i][j]) {
+				row_num[i][board[i][j]] = 1;    // �࿡ �ش� ���ڰ� �������� ǥ��
+				col_num[j][board[i][j]] = 1;    // ���� �ش� ���ڰ� �������� ǥ��
+				box_num[i / 3][j / 3][board[i][j]] = 1;   // �ڽ��� �ش� ���ڰ� �������� ǥ��
+			}
 		}
 	}
 }
 
-void sudoku::backtracking(int row, int col) {
-	for (row; row < 9 && !find_answer; row++) {
-		for (col; col < 9 && !find_answer; col++) {
-			if (!arr[row][col]) {
-				for (int i = 1; i < 10; i++) {
-					num = true;
-					for (int j = 0; j < 9; j++) {
-						if (arr[row][j] == i) {
-							num = false;
-							break;
-						}
-						if (arr[j][col] == i) {
-							num = false;
-							break;
-						}
-					}
-					row_start = row / 3 * 3;
-					col_start = col / 3 * 3;
-					for (int j = row_start; j < row_start + 3; j++) {
-						for (int k = col_start; k < col_start + 3; k++) {
-							if (arr[j][k] == i) {
-								num = false;
-								break;
-							}
-						}
-					}
-					if (num) {
-						arr[row][col] = i;
-						backtracking(row, col + 1);
-						arr[row][col] = 0;
+void sudoku::backtracking(int row, int col) {   // ��Ʈ��ŷ
+	for (row; row < arr_size; row++) {
+		for (col; col < 9; col++) {
+			if (!board[row][col]) {    // 0���� ǥ�õ� ��ĭ
+				for (int i = 1; i < 10 && !find_answer; i++) {
+					if (!row_num[row][i] && !col_num[col][i] && !box_num[row / 3][col / 3][i]) {    // 1 ~ 9 �� ��,��,�ڽ��� �������� �ʴ� ������ ���
+						row_num[row][i] = 1;
+						col_num[col][i] = 1;
+						box_num[row / 3][col / 3][i] = 1;
+						board[row][col] = i;
+						backtracking(row, col + 1);    // ���� �ϳ� �Է� �� ���� ��ĭ�� ����
+						row_num[row][i] = 0;
+						col_num[col][i] = 0;
+						box_num[row / 3][col / 3][i] = 0;
+						board[row][col] = 0;
 					}
 				}
 				return;
@@ -67,19 +65,18 @@ void sudoku::backtracking(int row, int col) {
 		}
 		col = 0;
 	}
-	if (!find_answer) {
-		find_answer = true;
 
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				cout << arr[i][j] << ' ';
-			}
-			cout << '\n';
+	find_answer = true;     // �� ã���� ��� �Լ� ���Ḧ ���� ���� ����
+
+	for (int i = 0; i < arr_size; i++) {    // ��� ���
+		for (int j = 0; j < arr_size; j++) {
+			cout << board[i][j] << ' ';
 		}
+		cout << '\n';
 	}
 }
 
-void sudoku::answer() {
+void sudoku::answer() {   // �Լ� ����
 	inputData();
 
 	backtracking(0, 0);
