@@ -7,11 +7,12 @@ class sudoku {
 	int board[9][9], row_num[9][10], col_num[9][10], box_num[3][3][10];
 	bool find_answer;
 
-	void inputData();    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½
+	void inputData();    // µ¥ÀÌÅÍ ÀÔ·Â
+	void backtracking(int, int);   // ¹éÆ®·¡Å·
 
 public:
-	sudoku() : find_answer(false) {   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		for (int i = 0; i < arr_size; i++) {   // ï¿½è¿­ ï¿½Ê±ï¿½È­
+	sudoku() : find_answer(false) {   // »ý¼ºÀÚ
+		for (int i = 0; i < arr_size; i++) {   // ¹è¿­ ÃÊ±âÈ­
 			for (int j = 1; j < 10; j++) {
 				row_num[i][j] = 0;
 				col_num[i][j] = 0;
@@ -26,34 +27,34 @@ public:
 		}
 	}
 
-	void answer();   // ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+	void answer();   // ÇÔ¼ö ½ÇÇà
 };
 
-void sudoku::inputData() {   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½
+void sudoku::inputData() {   // µ¥ÀÌÅÍ ÀÔ·Â
 	for (int i = 0; i < arr_size; i++) {
 		for (int j = 0; j < arr_size; j++) {
 			cin >> board[i][j];
 
 			if (board[i][j]) {
-				row_num[i][board[i][j]] = 1;    // ï¿½à¿¡ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
-				col_num[j][board[i][j]] = 1;    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
-				box_num[i / 3][j / 3][board[i][j]] = 1;   // ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
+				row_num[i][board[i][j]] = 1;    // Çà¿¡ ÇØ´ç ¼ýÀÚ°¡ Á¸ÀçÇÔÀ» Ç¥½Ã
+				col_num[j][board[i][j]] = 1;    // ¿­¿¡ ÇØ´ç ¼ýÀÚ°¡ Á¸ÀçÇÔÀ» Ç¥½Ã
+				box_num[i / 3][j / 3][board[i][j]] = 1;   // ¹Ú½º¿¡ ÇØ´ç ¼ýÀÚ°¡ Á¸ÀçÇÔÀ» Ç¥½Ã
 			}
 		}
 	}
 }
 
-void sudoku::backtracking(int row, int col) {   // ï¿½ï¿½Æ®ï¿½ï¿½Å·
+void sudoku::backtracking(int row, int col) {   // ¹éÆ®·¡Å·
 	for (row; row < arr_size; row++) {
 		for (col; col < 9; col++) {
-			if (!board[row][col]) {    // 0ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½Ãµï¿½ ï¿½ï¿½Ä­
+			if (!board[row][col]) {    // 0À¸·Î Ç¥½ÃµÈ ºóÄ­
 				for (int i = 1; i < 10 && !find_answer; i++) {
-					if (!row_num[row][i] && !col_num[col][i] && !box_num[row / 3][col / 3][i]) {    // 1 ~ 9 ï¿½ï¿½ ï¿½ï¿½,ï¿½ï¿½,ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+					if (!row_num[row][i] && !col_num[col][i] && !box_num[row / 3][col / 3][i]) {    // 1 ~ 9 Áß Çà,¿­,¹Ú½º¿¡ Á¸ÀçÇÏÁö ¾Ê´Â ¼ýÀÚÀÏ °æ¿ì
 						row_num[row][i] = 1;
 						col_num[col][i] = 1;
 						box_num[row / 3][col / 3][i] = 1;
 						board[row][col] = i;
-						backtracking(row, col + 1);    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+						backtracking(row, col + 1);    // ¼ýÀÚ ÇÏ³ª ÀÔ·Â ÈÄ ´ÙÀ½ ºóÄ­¿¡ ÁøÇà
 						row_num[row][i] = 0;
 						col_num[col][i] = 0;
 						box_num[row / 3][col / 3][i] = 0;
@@ -66,9 +67,9 @@ void sudoku::backtracking(int row, int col) {   // ï¿½ï¿½Æ®ï¿½ï¿½Å·
 		col = 0;
 	}
 
-	find_answer = true;     // ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½á¸¦ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	find_answer = true;     // ´ä Ã£¾ÒÀ» °æ¿ì ÇÔ¼ö Á¾·á¸¦ À§ÇÑ Á¶°Ç °»½Å
 
-	for (int i = 0; i < arr_size; i++) {    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	for (int i = 0; i < arr_size; i++) {    // °á°ú Ãâ·Â
 		for (int j = 0; j < arr_size; j++) {
 			cout << board[i][j] << ' ';
 		}
@@ -76,7 +77,7 @@ void sudoku::backtracking(int row, int col) {   // ï¿½ï¿½Æ®ï¿½ï¿½Å·
 	}
 }
 
-void sudoku::answer() {   // ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+void sudoku::answer() {   // ÇÔ¼ö ½ÇÇà
 	inputData();
 
 	backtracking(0, 0);
