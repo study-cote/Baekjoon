@@ -7,16 +7,23 @@ class algo {
 	char** arr;
 	bool find_ans = false;
 
-	void inputData();
-	void backTracking(int, int, int);
+	void inputData();   // 데이터 입력
+	void backTracking(int, int, int);   // 백트래킹
 
 public:
-	void func();
+	~algo() {   // 소멸자
+		for (int i = 0; i < n; i++) {
+			delete[] arr[i];
+		}
+		delete[] arr;
+	}
+
+	void func();   // 함수 실행
 };
 
-void algo::inputData() {
+void algo::inputData() {   // 데이터 입력
 	cin >> n;
-	
+
 	arr = new char* [n];
 	for (int i = 0; i < n; i++) {
 		arr[i] = new char[n];
@@ -26,7 +33,7 @@ void algo::inputData() {
 	}
 }
 
-void algo::backTracking(int row, int col, int remain) {
+void algo::backTracking(int row, int col, int remain) {   // 백트래킹
 	if (!remain) {
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
@@ -84,7 +91,7 @@ void algo::backTracking(int row, int col, int remain) {
 	}
 }
 
-void algo::func() {
+void algo::func() {   // 함수 실행
 	inputData();
 
 	backTracking(0, 0, 3);
